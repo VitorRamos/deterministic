@@ -118,8 +118,7 @@ long long remove_commas(char *temp_string) {
    int y=0,z=0;
 
    while(y<strlen(temp_string)) {
-
-      if (temp_string[y]==',') {
+      if (temp_string[y]=='.') {
       }
       else {
          temp_string[z]=temp_string[y];
@@ -128,6 +127,9 @@ long long remove_commas(char *temp_string) {
       y++;
    }
    temp_string[z]=0;
+   for(y=0; y<strlen(temp_string); y++)
+      if(temp_string[y]==',')
+         temp_string[y]=='.';
 
    return(atoll(temp_string));
 }
@@ -458,7 +460,7 @@ static int read_stats(char *machine_type,
 	       sscanf(string,"%s",temp_string);
 
 	       /* If comma delimited, then we have to remove the commas */
-	       if (strstr(temp_string,",")) {
+	       if (strstr(temp_string,".")) {
 	          stats[which_stat].value1[i]=remove_commas(temp_string);
 	       }
 	       else {
@@ -469,7 +471,7 @@ static int read_stats(char *machine_type,
 
 	       /* Read in second value */
 	       sscanf(string,"%s",temp_string);
-	       if (strstr(temp_string,",")) {
+	       if (strstr(temp_string,".")) {
 	          stats[which_stat].hw_interrupts[i]=remove_commas(temp_string);
 	       }
 	       else {
