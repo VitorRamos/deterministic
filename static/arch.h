@@ -178,29 +178,29 @@ struct event_table_t wsm_event_table = {
 };
 
 struct event_table_t snb_event_table = {
-   .hw_int_name = 		"HW_INTERRUPTS",
-   .hw_int_event =		"r53cb01:u",
+   .hw_int_name = 		"NONE", // HW_INTERRUPTS not listed on intel manual for snb or snb ep
+   .hw_int_event =		"NONE", // the r53cb01:u return something what is this event ?
    .ret_instr_name =		"INSTRUCTIONS_RETIRED",
-   .ret_instr_event =		"instructions:u",
+   .ret_instr_event =		"r5300c0:u",
    .branches_name =		"BRANCH_INSTRUCTIONS_RETIRED",
-   .branches_event =		"branches:u",
+   .branches_event =		"r5304c4:u",
    .cond_branches_name =	"BR_INST_RETIRED:CONDITIONAL",
    .cond_branches_event =	"r5301c4:u",
-   .loads_name =		"MEM_UOP_RETIRED:ANY_LOADS",
+   .loads_name =		"MEM_UOPS_RETIRED:ANY_LOADS",
    .loads_event =		"r5381d0:u",
-   .stores_name =		"MEM_UOP_RETIRED:ANY_STORES",
+   .stores_name =		"MEM_UOPS_RETIRED:ANY_STORES",
    .stores_event =		"r5382d0:u",
    .uops_name =			"UOPS_RETIRED:ANY",
    .uops_event =		"r5301c2:u",
-   .muls_name =			"NONE",
-   .muls_event =		"NONE",
+   .muls_name =			"PARTIAL_RAT_STALLS:MUL_SINGLE_UOP", //  is this mul ? Definition: Number of Multiply packed/scalar single precision uops allocate
+   .muls_event =		"r1570114:u",
    .divs_name =			"ARITH:FPU_DIV",
    .divs_event =		"r1570114:u",
    .fp1_name =			"FP_COMP_OPS_EXE:X87",
    .fp1_event =			"r530110:u",
-   .fp2_name =			"INST_RETIRED:X87",
-   .fp2_event =			"r5302c0:u",
-   .sse_name =			"FP_COMP_OPS_EXE:SSE_DOUBLE_PRECISION",
+   .fp2_name =			"INST_RETIRED:ANY_P", //  no argument X87 for INST_RETIRED on snb. ANY_P or PREC_DIST insted.
+   .fp2_event =			"r5300c0:u", // r5302c0:u what is this event ?
+   .sse_name =			"FP_COMP_OPS_EXE:SSE_SCALAR_DOUBLE", // SSE_DOUBLE_PRECISION does not exist on snb. Can we use SSE_SCALAR_DOUBLE same encoding?
    .sse_event =			"r538010:u",
 };
 
