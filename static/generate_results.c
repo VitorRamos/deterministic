@@ -428,7 +428,6 @@ int main(int argc, char **argv)
 
    get_cpuinfo();
    create_output_dir();
-
    char *programs[10] = {"inst_retired",
                          "branches_retired",
                          "cond_branches",
@@ -440,15 +439,37 @@ int main(int argc, char **argv)
                          "fp_retired",
                          "sse_retired"};
    char *ptypes[4] = {"int", "fp", "sse", "all"};
+   char* evs[10]= {event_table->ret_instr_event,
+                   event_table->branches_event,
+                   event_table->cond_branches_event,
+                   event_table->loads_event,
+                   event_table->stores_event,
+                   event_table->uops_event,
+                   event_table->muls_event,
+                   event_table->divs_event,
+                   event_table->fp1_event,
+                   event_table->sse_event };
+   char* evs_name[10]= {event_table->ret_instr_name,
+                   event_table->branches_name,
+                   event_table->cond_branches_name,
+                   event_table->loads_name,
+                   event_table->stores_name,
+                   event_table->uops_name,
+                   event_table->muls_name,
+                   event_table->divs_name,
+                   event_table->fp1_name,
+                   event_table->sse_name };
    int i, j;
    for (i = 0; i < 10; i++)
    {
       for (j = 0; j < 4; j++)
       {
+         if(event_table->hw_int_event == NULL)
+            continue;
          generate_results(dirname, programs[i],
-                          event_table->ret_instr_event,
+                          evs[i],
                           event_table->hw_int_event,
-                          event_table->ret_instr_name,
+                          evs_name[i],
                           event_table->hw_int_name,
                           ptypes[j], RUNS);
       }
